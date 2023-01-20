@@ -22,7 +22,7 @@ namespace LocalBusiness.Models;
         new Business { BusinessId = 7, Name = "Moonbucks", Description = "Coffee shop", Review = 5 },
         new Business { BusinessId = 10, Name = "IJump", Description = "American diner", Review = 3 },
         new Business { BusinessId = 11, Name = "House Depot", Description = "Home Improvement Company", Review = 1 },
-        new Business { BusinessId = 11, Name = "Bobithy Furniture", Description = "Furniture Company", Review = 2 }
+        new Business { BusinessId = 12, Name = "Bobithy Furniture", Description = "Furniture Company", Review = 2 }
       );
   }
 }
