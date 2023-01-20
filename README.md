@@ -115,6 +115,9 @@ Local Business API that functions as an archive for local businesses. The user c
 ## Pagination
 Add in <a href="#Api-Documentation">Version 2</a>
 
+## Swagger Documentation
+* Running the application will display SwaggerUI documentation.
+
 ## Known Bugs
 
 No known bugs
