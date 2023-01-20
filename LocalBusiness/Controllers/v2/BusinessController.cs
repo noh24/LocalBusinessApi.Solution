@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LocalBusiness.Models;
+using Newtonsoft.Json;
 
 namespace LocalBusiness.Controllers.v2;
 
@@ -16,14 +17,13 @@ public class BusinessController : ControllerBase
     _db = db;
   }
 
-  // GET api/business
   [HttpGet]
-  public async Task<ActionResult<IEnumerable<Business>>> Get(string name, string description, int review, bool random)
+  public async Task<ActionResult<IEnumerable<Business>>> Get([FromQuery] PagingParameters parameters, string name, string description, int review, bool random)
   {
-    IQueryable<Business> query = _db.Businesses.AsQueryable().OrderBy(e => e.Name);
+    IQueryable<Business> query = _db.Businesses.AsQueryable();
     if (name != null)
     {
-      query = query.Where(entry => entry.Name.Contains(name));
+      query = query.Where(e => e.Name.Contains(name));
     }
     if (description != null)
     {
@@ -35,14 +35,24 @@ public class BusinessController : ControllerBase
     }
     if (random)
     {
-      // generates random num
       Random randomNum = new Random();
       int ToThisIndex = randomNum.Next(0, query.Count());
       Business randomBusiness = query.Skip(ToThisIndex).FirstOrDefault();
       return new ActionResult<IEnumerable<Business>>(new List<Business> { randomBusiness });
     }
+    var businesses = await PagedList<Business>.ToPagedListAsync(query.OrderBy(e => e.Name), parameters.PageNumber, parameters.ElementsPerPage);
+    var metadata = new
+    {
+      businesses.TotalPages,
+      businesses.CurrentPage,
+      businesses.ElementsPerPage,
+      businesses.TotalCount,
+      businesses.HasPrevious,
+      businesses.HasNext
+    };
+    Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-    return await query.ToListAsync();
+    return new ActionResult<IEnumerable<Business>>(businesses);
   }
 
   // GET: api/Business/5
