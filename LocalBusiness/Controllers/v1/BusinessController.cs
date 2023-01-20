@@ -31,7 +31,7 @@ public class BusinessController : ControllerBase
     }
     if (review > 0)
     {
-      query = query.Where(e => e.Review >= 1);
+      query = query.Where(e => e.Review == review);
     }
     if (random)
     {
