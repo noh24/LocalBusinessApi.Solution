@@ -4,8 +4,10 @@ using LocalBusiness.Repository;
 using Microsoft.AspNetCore.Authorization;
 
 namespace LocalBusiness.Controllers;
-[Route("api/[controller]")]
+[Authorize]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]  
+[ApiVersion("3.0")]
 public class UsersController : ControllerBase
 {
 	private readonly IJWTManagerRepository _jWTManager;
@@ -16,6 +18,7 @@ public class UsersController : ControllerBase
 	}
 
 	[HttpGet]
+  [ApiExplorerSettings(IgnoreApi=true)]
 	public List<string> Get()
 	{
 		var users = new List<string>
