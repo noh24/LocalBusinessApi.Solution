@@ -1,10 +1,36 @@
 using LocalBusiness.Models;
+using LocalBusiness.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using ConfigureSwagger;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    var Key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]);
+    o.SaveToken = true;
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Key)
+    };
+});
+
+builder.Services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
 
 builder.Services.AddControllers();
 
@@ -55,9 +81,10 @@ else
 {
   app.UseHttpsRedirection();
 }
-
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseEndpoints(e => e.MapControllers());
 app.MapControllers();
 
 app.Run();
