@@ -158,10 +158,12 @@ Local Business API that functions as an archive for local businesses. The user c
 | api/v2/business/11                      | Deletes business with id = 11      |
 
 ## Pagination
-Add in <a href="#Version-2">Version 2</a>
+* Allows users to enter `PageNumber` and `ElementsPerPage` in API query
+* See examples in <a href="#Version-2">Version 2</a>
 
 ## Swagger Documentation
 * Run the application
+* Implemented Bearer authorization through Swagger
 * [Click on this](https://localhost:7777/swagger/index.html) to see Swagger Documentation
 
 ## Further Implementations
