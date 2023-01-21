@@ -158,7 +158,7 @@ Local Business API that functions as an archive for local businesses. The user c
 | api/v2/business/11                      | Deletes business with id = 11      |
 
 ## Pagination
-Add in <a href="#Api-Documentation">Version 2</a>
+Add in <a href="#Version-1">Version 2</a>
 
 ## Swagger Documentation
 * Run the application
