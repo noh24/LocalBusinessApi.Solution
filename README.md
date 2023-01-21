@@ -69,9 +69,54 @@ Local Business API that functions as an archive for local businesses. The user c
   ```
 ---
 ## API Documentation
+### Version 3
+#### Notes: Add JWT Authentication (V2 will not work without Authorization)
+* Version 2 now uses Bearer Token Authentication/Authorization
+## Instructions on how to Authenticate with Swagger:
+<img src="./LocalBusiness/wwwroot/images/step1_authenticate.png">  
+<img  src="./LocalBusiness/wwwroot/images/step2_enterinfo.png">  
+
+* Enter `{ "name": "user1", "password": "password1" }` and press execute to get token
+
+<img src="./LocalBusiness/wwwroot/images/step3_token.png">  
+
+* Copy the value of token
+
+<img src="./LocalBusiness/wwwroot/images/step4_v2.png">  
+
+* Go to V2 on top right corner of Swagger and press the `Authorize` button
+
+<img src="./LocalBusiness/wwwroot/images/step5_bearer.png">  
+
+
+* Follow the instructions 
+* Enter Bearer [copiedTokenValue] in the Value: input box and press Authorize
+* Then Close the Available authorizations form
+* Try out the endpoints
+
+## Instructions on how to Authenticate with Postman:
+<img src="./LocalBusiness/wwwroot/images/1_postman_post.png"> 
+
+* Select option `Post` left of the `URL`
+* Enter into URL: `https://localhost:7777/api/v3/users/authenticate`
+* Click on `Body` underneath the `Url`
+* Enter `{ "Name": "user1", "Password": "password1" }`
+* Click on `Send`
+
+<img src="./LocalBusiness/wwwroot/images/2_postman_token.png"> 
+
+* Copy the token
+
+<img src="./LocalBusiness/wwwroot/images/3_postman_api.png"> 
+
+* Switch the select option to `Get`, left of the `URL`
+* Enter into URL: `https://localhost:7777/api/v2/business`
+* Click on `Authorization` underneath the `URL`
+* Select `Bearer Token` as `Type` and enter in copied Token
+* Click on `Send` to call endpoint
 
 ### Version 2
-#### Notes: Add pagination
+#### Notes: Add pagination + authorization
 ### Endpoints for GET
 | Endpoints Example                     | Required | Returns                                    |
 | ---------------------------------|------ | ------------------------------------------ |
@@ -116,12 +161,17 @@ Local Business API that functions as an archive for local businesses. The user c
 Add in <a href="#Api-Documentation">Version 2</a>
 
 ## Swagger Documentation
-* Running the application will display SwaggerUI documentation.
+* Run the application
+* [Click on this](https://localhost:7777/swagger/index.html) to see Swagger Documentation
+
+## Further Implementations
+* There is no user registration feature yet. (Only already made users/passwords)
+* More specific error handling
 
 ## Known Bugs
 
 No known bugs
-.
+
 ## MIT License
 
 Copyright &copy; 2023 Brian Noh  
