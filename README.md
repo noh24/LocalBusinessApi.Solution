@@ -150,7 +150,7 @@ Local Business API that functions as an archive for local businesses. The user c
 ### Endpoints for PUT
 | Endpoints                               | Request Body Example                                     |
 | --------------------------------------- | ------------------------------------------ |
-| api/v2/business                         | { "businessId": 11, "name": "Gregory's Pizza", "description": "pizza shop", "review": 2 } |
+| api/v2/business/11                         | { "businessId": 11, "name": "Gregory's Pizza", "description": "pizza shop", "review": 2 } |
 
 ### Endpoints for DELETE
 | Endpoints Example                       | Result                                     |
