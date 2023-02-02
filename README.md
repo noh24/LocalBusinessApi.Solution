@@ -46,6 +46,11 @@ Local Business API that functions as an archive for local businesses. The user c
     "AllowedHosts": "*",
     "ConnectionStrings": {
       "DefaultConnection": "Server=localhost;Port=3306;database=local_business_api;uid=root;pwd=[PASSWORD];"
+    },
+    "JWT": {
+      "Key": "Thisismysupersecretkeyforjwt",
+      "Issuer": "https://localhost:7777",
+      "Audience": "https://localhost:7777"
     }
   }
   ```
